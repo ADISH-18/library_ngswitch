@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Book Genres</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Libre Baskerville', serif;
+      margin: 40px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 18px;
+      color: #555;
+    }
+
+    select {
+      width: 100%;
+      padding: 15px;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 18px;
+      background-color: #fff;
+      color: #555;
+    }
+
+    .genre-info {
+      max-width: 500px;
+      margin: 0 auto;
+      border: 2px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #4CAF50;
+      font-size: 24px;
+    }
+
+    p {
+      color: #666;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="genreController">
+
+  <h1>Welcome to the Library</h1>
+
+  <label for="genre">Explore Genres:</label>
+  <select id="genre" ng-model="selectedGenre" ng-change="updateGenreInfo()" ng-options="genre for genre in genres">
+    <option value="" disabled>Select Genre</option>
+  </select>
+
+  <div class="genre-info" ng-show="selectedGenre">
+    <h2>{{selectedGenre}}</h2>
+    <img ng-src="{{genreInfo[selectedGenre].image}}" alt="{{selectedGenre}} Image">
+    <p>{{genreInfo[selectedGenre].description}}</p>
+    <h3>Top Books in {{selectedGenre}}</h3>
+    <ul>
+      <li ng-repeat="book in genreInfo[selectedGenre].topBooks">{{book}}</li>
+    </ul>
+  </div>
+
+  <script>
+    var app = angular.module('myApp', []);
+
+    app.controller('genreController', function ($scope) {
+      $scope.genres = ['Fiction', 'Mystery', 'Science Fiction', 'Fantasy', 'Romance', 'Biography'];
+      $scope.genreInfo = {
+        'Fiction': {
+          description: 'Fiction is the creation of the author\'s imagination. It includes novels, short stories, and plays that are not based on real events.',
+          image: 'fiction.jpg',
+          topBooks: ['To Kill a Mockingbird', '1984', 'Pride and Prejudice']
+        },
+        'Mystery': {
+          description: 'Mystery genre involves a suspenseful plot centered around a crime, puzzle, or enigma that needs to be solved.',
+          image: 'mystery.jpg',
+          topBooks: ['The Da Vinci Code', 'Sherlock Holmes Series', 'Gone Girl']
+        },
+        'Science Fiction': {
+          description: 'Science Fiction explores imaginative and futuristic concepts often involving space, time travel, and advanced technology.',
+          image: 'scifi.jpg',
+          topBooks: ['Dune', 'Ender\'s Game', 'The Hitchhiker\'s Guide to the Galaxy']
+        },
+        'Fantasy': {
+          description: 'Fantasy genre involves magical elements, mythical creatures, and imaginative worlds that are not based on reality.',
+          image: 'fantasy.jpg',
+          topBooks: ['The Lord of the Rings', 'Harry Potter Series', 'A Song of Ice and Fire']
+        },
+        'Romance': {
+          description: 'Romance genre focuses on romantic relationships and love stories between characters.',
+          image: 'romance.jpg',
+          topBooks: ['Pride and Prejudice', 'Romeo and Juliet', 'Outlander']
+        },
+        'Biography': {
+          description: 'Biography genre tells the life story of a real person, detailing events, experiences, and achievements.',
+          image: 'biography.jpg',
+          topBooks: ['Steve Jobs', 'The Diary of a Young Girl', 'The Glass Castle']
+        }
+      };
+
+      $scope.updateGenreInfo = function () {
+        // You can perform additional actions here if needed.
+      };
+    });
+  </script>
+
+</body>
+
+</html>
